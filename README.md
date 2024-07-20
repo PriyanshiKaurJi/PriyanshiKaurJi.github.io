@@ -9,5 +9,5 @@ Very Soon I'm Gonna Upload GoatBot "COMMANDS" Here !
 ## Get API Key - https://aistudio.google.com
 
 # 2 Llama Ai 
-## Link - https://pastebin.com/raw/8HAX2Xza
+## Link - https://pastebin.com/raw/YDJ7CLB6
 ## Get API Key - https://console.groq.com/keys
