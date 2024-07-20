@@ -2,8 +2,12 @@
 
 Very Soon I'm Gonna Upload GoatBot "COMMANDS" Here !
 
-# 1 Gemini AI [PLEASE DON'T CHANGE RESPECTED AUTHOR'S NAME]
+# [PLEASE DON'T CHANGE RESPECTED AUTHOR'S NAME]
 
+# 1 Gemini AI 
 ## Link - https://pastebin.com/eU232Zb8
-
 ## Get API Key - https://aistudio.google.com
+
+# 2 Llama Ai 
+## Link - https://pastebin.com/raw/8HAX2Xza
+## Get API Key - https://console.groq.com/keys
