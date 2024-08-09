@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Priyanshi Kaur's Hub</title>
+    <meta property="og:image" content="https://i.imgur.com/XLnyxbD.jpeg">
     <style>
         body {
             background-image: url("https://i.imgur.com/zk3h3vY.jpeg");
@@ -88,3 +89,5 @@
     </script>
 </body>
 </html>
+Completion time: 2.66 seconds
+Total words: 218
