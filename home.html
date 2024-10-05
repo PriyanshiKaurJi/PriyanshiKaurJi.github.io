@@ -142,7 +142,6 @@
 
     <script>
         const API_KEY = "AIzaSyCDDV9GJU_IeepE1hbS-rrGclbqamFVV5Y";
-        const DOWNLOAD_API_KEY = "r-e377e74a78b7363636jsj8ffb61ce";
 
         async function searchSong() {
             const query = document.getElementById('searchInput').value;
@@ -161,7 +160,7 @@
 
                     resultDiv.innerHTML = `
                         <h2>${videoTitle}</h2>
-                        <a href="#" onclick="downloadSong('${videoUrl}', '${videoTitle}')" class="download-button">Download</a>
+                        <a href="#" onclick="downloadSong('${videoUrl}', '${videoTitle}')" class="download-button">Download MP3</a>
                     `;
                 } else {
                     resultDiv.innerHTML = 'No results found.';
@@ -177,16 +176,31 @@
             resultDiv.innerHTML += '<p>Processing download...</p>';
 
             try {
-                const response = await fetch(`https://for-devs.onrender.com/api/snapsave?url=${encodeURIComponent(url)}&apikey=${DOWNLOAD_API_KEY}`);
-                const data = await response.json();
+                const payload = {
+                    filenamePattern: "pretty",
+                    isAudioOnly: true,
+                    url: url
+                };
 
-                if (data.data && data.data.medias && data.data.medias.length > 0) {
-                    const downloadUrl = data.data.medias[0].url;
+                const response = await fetch("https://cnvmp3.com/fetch.php", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const jsonData = await response.json();
+                const downloadUrl = jsonData.url;
+
+                if (downloadUrl) {
                     const downloadLink = document.createElement('a');
                     downloadLink.href = downloadUrl;
                     downloadLink.download = `${title}.mp3`;
+                    document.body.appendChild(downloadLink);
                     downloadLink.click();
-                    resultDiv.innerHTML += '<p>Download started!</p>';
+                    document.body.removeChild(downloadLink);
+                    resultDiv.innerHTML += '<p>Download started! Check your downloads folder.</p>';
                 } else {
                     resultDiv.innerHTML += '<p>Failed to get download link.</p>';
                 }
