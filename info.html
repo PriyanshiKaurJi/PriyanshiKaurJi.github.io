@@ -1,0 +1,91 @@
+import React, { useState, useEffect } from 'react';
+import { ExternalLink, Mail, MapPin, BookOpen, Code, Target, Calendar, Clock } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+
+const ProfilePage = () => {
+  const [currentTime, setCurrentTime] = useState(new Date().toLocaleString());
+  const [isHovered, setIsHovered] = useState('');
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date().toLocaleString());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const InfoRow = ({ icon: Icon, label, value }) => (
+    <div 
+      className="flex items-center gap-3 p-3 rounded-lg transition-all duration-300 hover:bg-black/5"
+      onMouseEnter={() => setIsHovered(label)}
+      onMouseLeave={() => setIsHovered('')}
+      style={{
+        transform: isHovered === label ? 'scale(1.02)' : 'scale(1)',
+      }}
+    >
+      <Icon className="w-5 h-5 text-blue-500" />
+      <div>
+        <div className="text-sm text-gray-500">{label}</div>
+        <div className="font-medium">{value}</div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-cover bg-center p-4" style={{ backgroundImage: 'url(https://i.imgur.com/zk3h3vY.jpeg)' }}>
+      <Card className="max-w-2xl mx-auto bg-white/90 backdrop-blur-sm">
+        <CardContent className="p-6">
+          <div className="flex flex-col items-center mb-6">
+            <div className="w-32 h-32 rounded-full overflow-hidden mb-4 ring-4 ring-blue-500 hover:ring-blue-600 transition-all duration-300">
+              <img
+                src="https://i.imgur.com/wRUV5Sp.jpeg"
+                alt="Profile"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <h1 className="text-2xl font-bold mb-1">Priyanshi Kaur</h1>
+            <div className="text-gray-500 flex items-center gap-2">
+              <MapPin className="w-4 h-4" />
+              <span>{currentTime}</span>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <InfoRow icon={Calendar} label="Age" value="24" />
+            <InfoRow icon={MapPin} label="Born" value="Punjab, IND" />
+            <InfoRow icon={MapPin} label="Current Location" value="Chennai, IND" />
+            <InfoRow icon={BookOpen} label="Education" value="Pune University & Defence" />
+            <InfoRow icon={Code} label="Knowledge" value="Coding And Law" />
+            <InfoRow icon={Target} label="Hobbies" value="Coding And Gun Firing (Practice)" />
+
+            <div className="mt-6 pt-6 border-t">
+              <h2 className="text-lg font-semibold mb-4">Social Contacts</h2>
+              
+              <div className="space-y-3">
+                <a href="mailto:priyanshikaurji@gmail.com" className="flex items-center gap-3 hover:text-blue-500 transition-colors">
+                  <Mail className="w-5 h-5" />
+                  <span>priyanshikaurji@gmail.com</span>
+                </a>
+                
+                <a href="https://m.facebook.com/PriyanshiKaurJi" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-blue-500 transition-colors">
+                  <ExternalLink className="w-5 h-5" />
+                  <span>Facebook</span>
+                </a>
+                
+                <a href="https://t.me/priyanshikaurji" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-blue-500 transition-colors">
+                  <ExternalLink className="w-5 h-5" />
+                  <span>Telegram</span>
+                </a>
+                
+                <div className="text-gray-400 italic mt-2">
+                  Discord and Instagram coming soon
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+export default ProfilePage;
