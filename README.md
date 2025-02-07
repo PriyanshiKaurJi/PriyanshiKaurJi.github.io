@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -116,7 +115,7 @@
 
     <!-- Profile Section -->
     <div class="profile">
-        <img src="https://i.imgur.com/q24tifo.jpeg" alt="Profile Picture">
+        <img src="https://i.imgur.com/to2Z4EN.jpeg" alt="Profile Picture">
         <h1>Priyanshi Kaur</h1>
     </div>
 
