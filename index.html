@@ -590,7 +590,7 @@
                 <a href="https://t.me/priyanshikaurji" target="_blank" class="social-btn">
                     <i class="fab fa-telegram"></i>
                 </a>
-                <a href="https://github.com/ItzPriyanshi" target="_blank" class="social-btn">
+                <a href="https://github.com/priyanshikaurji" target="_blank" class="social-btn">
                     <i class="fab fa-github"></i>
                 </a>
                 <a href="https://linkedin.com/in/priyanshikaurji" target="_blank" class="social-btn">
@@ -681,4 +681,97 @@
         function init() {
             particles = [];
             // Create particles
-            for (let i = 0; i < 100; i+
+            for (let i = 0; i < 100; i++) {
+                const size = Math.random() * 5 + 1;
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const speedX = (Math.random() - 0.5) * 1;
+                const speedY = (Math.random() - 0.5) * 1;
+                const color = isDarkMode ? '#00ffcc' : '#6c63ff';
+                
+                particles.push(new Particle(x, y, size, speedX, speedY, color));
+            }
+        }
+
+        function handleParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
+        }
+
+        function connectParticles() {
+            const maxDistance = 120;
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a; b < particles.length; b++) {
+                    const dx = particles[a].x - particles[b].x;
+                    const dy = particles[a].y - particles[b].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < maxDistance) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = isDarkMode ? 
+                                         `rgba(0, 255, 204, ${1 - distance/maxDistance})` : 
+                                         `rgba(108, 99, 255, ${1 - distance/maxDistance})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            handleParticles();
+            connectParticles();
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+
+        canvas.addEventListener("mousemove", function (event) {
+            for (let i = 0; i < 2; i++) {
+                const size = Math.random() * 5 + 2;
+                const color = isDarkMode ? '#00ffcc' : '#6c63ff';
+                particles.push(new Particle(
+                    event.x, 
+                    event.y, 
+                    size, 
+                    (Math.random() - 0.5) * 2, 
+                    (Math.random() - 0.5) * 2,
+                    color
+                ));
+                // Keep particle count manageable
+                if(particles.length > 200) {
+                    particles.splice(0, 20);
+                }
+            }
+        });
+
+        init();
+        animate();
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // API button redirect in same tab
+        document.getElementById('apiButton').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = this.getAttribute('href');
+        });
+    </script>
+</body>
+</html>
