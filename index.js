@@ -1,28 +1,13 @@
 const express = require('express');
 const path = require('path');
-const compression = require('compression');
-const favicon = require('serve-favicon');
-const fs = require('fs');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(compression()); // Compress all responses
-app.use(express.static(path.join(__dirname, 'public'))); // Serve static files
-
-// Only use favicon if it exists
-const faviconPath = path.join(__dirname, 'public', 'favicon.ico');
-if (fs.existsSync(faviconPath)) {
-  app.use(favicon(faviconPath));
-}
-
-// Routes
+// Serve the index.html file on the root route:
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  // Use process.cwd() to refer to the project root (Vercel’s runtime CWD)
+  res.sendFile(path.join(process.cwd(), 'index.html'));
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Export the app (no app.listen())
+module.exports = app;
